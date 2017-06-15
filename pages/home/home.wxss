@@ -1,0 +1,23 @@
+/* pages/home/home.wxss */
+.home-container {
+  display: flex;
+  justify-content: center;
+  /*margin-top: 30px;
+  width: 100%;*/
+  /*align-items: center;*/
+}
+.touch-view {
+  position: absolute;
+  background-color: rebeccapurple;
+  width: 66px;
+  height: 132px;
+  z-index: 1;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.content-box {
+  /*position: absolute;*/
+  background-color: gray;
+  width: 304px;
+  height: 304px;
+}

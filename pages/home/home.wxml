@@ -1,0 +1,8 @@
+<!--pages/home/home.wxml-->
+<view class="home-container">
+  <view class="content-box" bindtouchstart="boxtouchbegin" >
+    <view bindtouchstart="bindtouchbegin"  class="touch-view" style="margin-top:{{view_offset_top}}px;margin-left:{{view_offset_left}}px;" id="1001">one</view>
+  </view>
+  
+  
+</view>
