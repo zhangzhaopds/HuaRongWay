@@ -61,7 +61,7 @@ Page({
         tops.push(offset_top)
         lefts.push(offset_left)
         points.push([offset_top, offset_left])
-        if (i == 4 && (j == 2 || j == 1)) {
+        if (i == 2 && (j == 2 || j == 1)) {
           spaces.push(true)
         } else {
           spaces.push(false)
@@ -70,19 +70,19 @@ Page({
     }
     var datas = {}
     // 1单一 13 14 16 19 : 106 107 109 110
-    datas['106'] = { 'x': points[13][1], 'y': points[13][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
-    datas['107'] = { 'x': points[14][1], 'y': points[14][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
-    datas['109'] = { 'x': points[16][1], 'y': points[16][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
-    datas['110'] = { 'x': points[19][1], 'y': points[19][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['106'] = { 'x': points[17][1], 'y': points[17][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/11_1_0.png', 'd_src': '../../images/11_1_0.png' }
+    datas['107'] = { 'x': points[18][1], 'y': points[18][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/11_2_0.png', 'd_src': '../../images/11_2_0.png' }
+    datas['109'] = { 'x': points[16][1], 'y': points[16][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/11_3_0.png', 'd_src': '../../images/11_3_0.png' }
+    datas['110'] = { 'x': points[19][1], 'y': points[19][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/11_4_0.png', 'd_src': '../../images/11_4_0.png' }
     // 2竖二 0 3 8 11   101 103 104 108
-    datas['101'] = { 'x': points[0][1], 'y': points[0][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
-    datas['103'] = { 'x': points[3][1], 'y': points[3][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
-    datas['104'] = { 'x': points[8][1], 'y': points[8][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
-    datas['108'] = { 'x': points[11][1], 'y': points[11][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['101'] = { 'x': points[0][1], 'y': points[0][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/12_1_0.png', 'd_src': '../../images/12_1_0.png' }
+    datas['103'] = { 'x': points[3][1], 'y': points[3][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/12_2_0.png', 'd_src': '../../images/12_2_0.png' }
+    datas['104'] = { 'x': points[8][1], 'y': points[8][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/12_3_0.png', 'd_src': '../../images/12_3_0.png' }
+    datas['108'] = { 'x': points[11][1], 'y': points[11][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/12_4_0.png', 'd_src': '../../images/12_4_0.png' }
     // 3横二 9  105
-    datas['105'] = { 'x': points[9][1], 'y': points[9][0], 'type': 3, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['105'] = { 'x': points[13][1], 'y': points[13][0], 'type': 3, 'src': '../../images/66.png', 's_src': '../../images/21_1_0.png', 'd_src': '../../images/21_1_0.png' }
     // 4方四 1
-    datas['102'] = { 'x': points[1][1], 'y': points[1][0], 'type': 4, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['102'] = { 'x': points[1][1], 'y': points[1][0], 'type': 4, 'src': '../../images/66.png', 's_src': '../../images/22_1_0.png', 'd_src': '../../images/22_1_0.png' }
 
     this.setData({
       point_tops: tops,
