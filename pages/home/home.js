@@ -11,7 +11,6 @@ Page({
     view_offset_left: 0,
     page_x: 0,
     page_y: 0,
-    
     box_height: 0,
     box_width: 0, 
     view_width: 0,
@@ -21,18 +20,26 @@ Page({
     // 选择的模块
     isSelected: false,  // 当前模块
     blockType: 1,       // 1: 单一，2：竖二， 3： 横二， 4: 方四
-    blockId: 0
-    
+    blockId: '',
+    views_data: {},
+    steps: 0
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.bindResetBtn()
+  },
+
+  // 重置
+  bindResetBtn: function(e) {
+    console.log("重置")
     var width = 304
     var offset = 20
     var content = (width - 40) / 8 + offset
     this.setData({
-      box_height: 304,
+      box_height: 370,
       box_width: 304,
       view_width: 66,
       view_x: content,
@@ -47,29 +54,49 @@ Page({
     var spaces = []
     var tops = []
     var lefts = []
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 5; i++) {
       for (var j = 0; j < 4; j++) {
         offset_top = 66 * i + 20
         offset_left = 66 * j + 20
         tops.push(offset_top)
         lefts.push(offset_left)
         points.push([offset_top, offset_left])
-        if (j == 0 && (i == 0 || i == 1)) {
-          spaces.push(false)
-        } else {
+        if (i == 4 && (j == 2 || j == 1)) {
           spaces.push(true)
+        } else {
+          spaces.push(false)
         }
-        
       }
     }
+    var datas = {}
+    // 1单一 13 14 16 19 : 106 107 109 110
+    datas['106'] = { 'x': points[13][1], 'y': points[13][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['107'] = { 'x': points[14][1], 'y': points[14][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['109'] = { 'x': points[16][1], 'y': points[16][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['110'] = { 'x': points[19][1], 'y': points[19][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    // 2竖二 0 3 8 11   101 103 104 108
+    datas['101'] = { 'x': points[0][1], 'y': points[0][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['103'] = { 'x': points[3][1], 'y': points[3][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['104'] = { 'x': points[8][1], 'y': points[8][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    datas['108'] = { 'x': points[11][1], 'y': points[11][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    // 3横二 9  105
+    datas['105'] = { 'x': points[9][1], 'y': points[9][0], 'type': 3, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+    // 4方四 1
+    datas['102'] = { 'x': points[1][1], 'y': points[1][0], 'type': 4, 'src': '../../images/66.png', 's_src': '../../images/66s.png', 'd_src': '../../images/66.png' }
+
     this.setData({
       point_tops: tops,
       point_lefts: lefts,
       points: points,
-      spaces: spaces
+      spaces: spaces,
+      views_data: datas,
+      steps: 0
     })
+
+    console.log(datas)
     console.log(points)
     console.log(spaces)
+
   },
 
   // 移动控件
@@ -85,67 +112,87 @@ Page({
     var touchs = e.touches[0];
     var pageX = touchs.pageX;
     var pageY = touchs.pageY;
-    // console.log('pageX: ' + pageX)
-    // console.log('pageY: ' + pageY)
-    this.setData({
-      page_x: pageX,
-      page_y: pageY,
-    })
+    var targetX = e.target['offsetLeft']
+    var targetY = e.target['offsetTop']
+    console.log('pageX: ' + (pageX - targetX))
+    console.log('pageY: ' + (pageY - targetY))
     
-    var v = Math.abs(this.data['page_y'] - this.data['view_y'])
-    var h = Math.abs(this.data['page_x'] - this.data['view_x'])
-    if (v >= h) {
-      if (this.data['page_y'] > this.data['view_y']) {
-        console.log("下")
-        this.moveToDown()
-      } else if (this.data['page_y'] < this.data['view_y']) {
-        console.log('上')
-        this.moveToUp()
-      } else {
-        console.log("===")
-      }
-    } else {
-      if (this.data['page_x'] > this.data['view_x']) {
-        console.log('右')
-        this.moveToRight()
-      } else if (this.data['page_x'] < this.data['view_x']) {
-        console.log('左')
-        this.moveToLeft()
-      } else {
-        console.log("====")
-      }
+    // 修正视图坐标，左上（0, 0）
+    var touch_x = pageX - targetX
+    var touch_y = pageY - targetY
+
+    var size = this.blockSize(this.data['blockType'])
+    // 滑块四角
+    var up_left_x = this.data['view_offset_left']
+    var up_left_y = this.data['view_offset_top']
+
+    var up_right_x = this.data['view_offset_left'] + size[0]
+    var up_right_y = this.data['view_offset_top']
+
+    var down_left_x = this.data['view_offset_left']
+    var down_left_y = this.data['view_offset_top'] + size[1]
+
+    var down_right_x = this.data['view_offset_left'] + size[0]
+    var down_right_y = this.data['view_offset_top'] + size[1]
+    
+    if (touch_x >= up_left_x && touch_x <= up_right_x && touch_y < up_left_y) {
+      console.log("上")
+      this.moveToUp()
     }
-  },
-  // 选择控件
-  bindtouchbegin: function(e) {
-    console.log("选择控件")
-    var id = parseInt(e['target']['id'])
-    if (id > 4000) {
-      // 单-
-    } else if (id > 3000) {
-      // 竖二
-    } else if (id > 2000) {
-      // 横二
-    } else if (id > 1000) {
-      // 方四
+    if (touch_y >= up_left_y && touch_y <= down_left_y && touch_x < up_left_x) {
+      console.log("左")
+      this.moveToLeft()
     }
-    if (this.data['isSelected']) {
-      console.log("已选择")
-      return
-    } else {
-      var touchs = e.touches[0];
-      var pageX = touchs.pageX;
-      var pageY = touchs.pageY;
-      
-      var target_left = e.target['offsetLeft']
-      var target_top = e.target['offsetTop']
-      this.setData({
-        isSelected: true
+    if (touch_x >= down_left_x && touch_x <= down_right_x && touch_y > down_left_y) {
+      console.log('下')
+      this.moveToDown()
+    }
+    if (touch_y >= up_right_y && touch_y <= down_right_y && touch_x > up_right_x) {
+      console.log("右")
+      this.moveToRight()
+    }
+    // 成功
+    // 102  x:86 y:218
+    var data = this.data['views_data']['102']
+    if (data['x'] == 86 && data['y'] == 86) {
+      console.log('成功')
+      wx.showModal({
+        title: '恭喜',
+        content: '你已出师了',
+        showCancel: false,
+        success: function(res) {
+          if (res.confirm) {
+            // this.setData({
+            //   steps: 0
+            // })
+          }
+        }
       })
     }
+  },
+
+
+  // 选择控件
+  bindtouchbegin: function(e) {
+    var id = parseInt(e['target']['id'])
+    // blockType: 1,       // 1: 单一，2：竖二， 3： 横二， 4: 方四
+    if (this.data['blockId'] != '') {  
+      this.data['views_data'][this.data['blockId']]['src'] = this.data['views_data'][this.data['blockId']]['d_src']
+    }
+    this.data['views_data'][id.toString()]['src'] = this.data['views_data'][id.toString()]['s_src']
+  
+    var data = this.data['views_data'][id.toString()]
     this.setData({
-      isPenetrate: false
+      view_offset_top: data['y'],
+      view_offset_left: data['x'],
+      blockType: data['type'],
+      blockId: id.toString(),
+      isPenetrate: false,
+      views_data: this.data['views_data']
     })
+    console.log("选择控件", this.data['view_offset_left'], this.data['view_offset_top'], this.data['blockType'], this.data['blockId'])
+    console.log(this.data['views_data'][this.data['blockId']])
+  
   },
   // 根据类型，返回宽高
   blockSize: function(e) {
@@ -174,7 +221,7 @@ Page({
   // 右
   moveToRight: function(e) {
     console.log("右移")
-    var size = this.blockSize(2)
+    var size = this.blockSize(this.data['blockType'])
     var viewx = this.data['view_x'] + size[0]
     // 方向点
     var tar = false
@@ -249,8 +296,13 @@ Page({
       }
       console.log(this.data['spaces'])
       this.setData({
-        view_offset_left: target,
+        view_offset_left: origin_left + this.data['view_width'],
         view_x: viewx
+      })
+      this.data['views_data'][this.data['blockId']]['x'] = this.data['view_offset_left']
+      this.setData({
+        views_data: this.data['views_data'],
+        steps: this.data['steps'] + 1
       })
     } else {
       console.log("右=越界")
@@ -259,7 +311,7 @@ Page({
   // 左
   moveToLeft: function(e) {
     console.log("左移")
-    var size = this.blockSize(2)
+    var size = this.blockSize(this.data['blockType'])
     var viewx = this.data['view_x'] - this.data['view_width']
     // 左
     var origin_up_left = this.data['view_offset_left'] - this.data['view_width']
@@ -335,6 +387,11 @@ Page({
         view_offset_left: origin_up_left,
         view_x: viewx
       })
+      this.data['views_data'][this.data['blockId']]['x'] = this.data['view_offset_left']
+      this.setData({
+        views_data: this.data['views_data'],
+        steps: this.data['steps'] + 1
+      })
     } else {
       console.log("左=越界")
     }
@@ -342,7 +399,7 @@ Page({
   // 上
   moveToUp: function(e) {
     console.log('上移')
-    var size = this.blockSize(2)
+    var size = this.blockSize(this.data['blockType'])
     var viewy = this.data['view_y'] - this.data['view_width']
     // 上部
     var target_left_top = this.data['view_offset_top'] - this.data['view_width']
@@ -379,7 +436,6 @@ Page({
             spaces: arr
           })
           break
-          break
         }
       }
       for (var i in this.data['points']) {
@@ -389,7 +445,6 @@ Page({
           this.setData({
             spaces: arr
           })
-          break
           break
         }
       }
@@ -402,7 +457,6 @@ Page({
             spaces: arr
           })
           break
-          break
         }
       }
       for (var i in this.data['points']) {
@@ -413,13 +467,17 @@ Page({
             spaces: arr
           })
           break
-          break
         }
       }
       console.log(this.data['spaces'])
       this.setData({
         view_offset_top: target_left_top,
         view_y: viewy
+      })
+      this.data['views_data'][this.data['blockId']]['y'] = this.data['view_offset_top']
+      this.setData({
+        views_data: this.data['views_data'],
+        steps: this.data['steps'] + 1
       })
     } else {
       console.log("上移动=越界")
@@ -428,7 +486,7 @@ Page({
   // 下
   moveToDown: function(e) {
     console.log('下移')
-    var size = this.blockSize(2)
+    var size = this.blockSize(this.data['blockType'])
     var viewy = this.data['view_y'] + size[1]
     // 上部分
     var target_left_top = this.data['view_offset_top'] + size[1]
@@ -503,72 +561,18 @@ Page({
         view_offset_top: up_left_top + this.data['view_width'],
         view_y: viewy
       })
+      this.data['views_data'][this.data['blockId']]['y'] = this.data['view_offset_top']
+      this.setData({
+        views_data: this.data['views_data'],
+        steps: this.data['steps'] + 1
+      })
     } else {
       console.log("下=越界")
     }
   },
-  bindtouchend: function(e) {
-    console.log("结束")
-    console.log(e)
-    
-    var target_left = e.target['offsetLeft']
-    var target_top = e.target['offsetTop']
-    console.log('target_left: ' + target_left)
-    console.log('target_top: ' + target_top)
 
-    // var touchs = e.touches[0];
-    // var pageX = touchs.pageX;
-    // var pageY = touchs.pageY;
-    // console.log('pageX: ' + pageX)
-    // console.log('pageY: ' + pageY)
-    // var h = Math.abs(target_left - pageX)
-    // var v = Math.abs(target_top - pageY)
-    // console.log(h)
-    // console.log(v)
-    return
-    if (h > v) {
-      if (target_left > pageX) {
-        console.log('左' + h)
-      } else if (target_left < pageX) {
-        console.log('右' + h)
-      }
-      this.setData({
-        ballLeft: pageX
-      });
-    } else if (h == v) {
-      console.log('相等')
-    } else {
-      if (target_top > pageY) {
-        console.log('上' + v)
-      } else if (target_top < pageY) {
-        console.log('下' + v)
-      }
-      this.setData({
-        ballTop: pageY,
-      });
-    }
-  },
+  
 
-  // bindtouchmove: function(e) {
-  //   console.log(e)
-  //   console.log('我被拖动了....')
-    
-    
-    
-    
-
-  //   //防止坐标越界,view宽高的一般 
-  //   // if (pageX < 30) return;
-  //   // if (pageX > this.data.screenWidth - 30) return;
-  //   // if (this.data.screenHeight - pageY <= 30) return;
-  //   // if (pageY <= 30) return;
-  //   //这里用right和bottom.所以需要将pageX pageY转换 
-  //   // var x = 300 - pageX - 30;
-  //   // var y = 300 - pageY - 30;
-  //   // console.log('x: ' + x)
-  //   // console.log('y: ' + y)
-     
-  // },
 
   
 

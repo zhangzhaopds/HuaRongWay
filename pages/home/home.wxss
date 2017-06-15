@@ -2,22 +2,76 @@
 .home-container {
   display: flex;
   justify-content: center;
-  /*margin-top: 30px;
-  width: 100%;*/
-  /*align-items: center;*/
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
 }
-.touch-view {
+page {
+  background-color: #F9F9F9;
+}
+.content-box {
+  width: 304px;
+  height: 370px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+  border-bottom-style: none;
+  border-radius: 2px;
+}
+.one-one-view {
   position: absolute;
-  background-color: rebeccapurple;
+  width: 66px;
+  height: 66px;
+  z-index: 1;
+}
+.one-two-view {
+  position: absolute;
   width: 66px;
   height: 132px;
   z-index: 1;
-  margin-top: 20px;
-  margin-left: 20px;
 }
-.content-box {
-  /*position: absolute;*/
-  background-color: gray;
+.two-one-view {
+  position: absolute;
+  width: 132px;
+  height: 66px;
+  z-index: 1;
+}
+.two-two-view {
+  position: absolute;
+  width: 132px;
+  height: 132px;
+  z-index: 1;
+}
+.line-view {
+  background: white;
+  height: 2px;
   width: 304px;
-  height: 304px;
+  display: flex;
+  justify-content: center;
+}
+.inline-view {
+  background: #e5e5e5;
+  height: 3px;
+  width: 142px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ininline-view {
+  background: white;
+  height: 3px;
+  width: 132px;
+}
+.steps-view {
+  margin-top: 50px;
+  width: 100%;
+  color: #666666;
+  text-align: center;
+}
+.reset-btn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
 }

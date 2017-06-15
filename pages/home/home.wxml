@@ -1,8 +1,22 @@
 <!--pages/home/home.wxml-->
 <view class="home-container">
   <view class="content-box" bindtouchstart="boxtouchbegin" >
-    <view bindtouchstart="bindtouchbegin"  class="touch-view" style="margin-top:{{view_offset_top}}px;margin-left:{{view_offset_left}}px;" id="1001">one</view>
+    <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['106']['y']}}px;margin-left:{{views_data['106']['x']}}px;" id="106" src="{{views_data['106']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['107']['y']}}px;margin-left:{{views_data['107']['x']}}px;" id="107" src="{{views_data['107']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['109']['y']}}px;margin-left:{{views_data['109']['x']}}px;" id="109" src="{{views_data['109']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['110']['y']}}px;margin-left:{{views_data['110']['x']}}px;" id="110" src="{{views_data['110']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-two-view" style="margin-top:{{views_data['101']['y']}}px;margin-left:{{views_data['101']['x']}}px;" id="101" src="{{views_data['101']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-two-view" style="margin-top:{{views_data['103']['y']}}px;margin-left:{{views_data['103']['x']}}px;" id="103" src="{{views_data['103']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-two-view" style="margin-top:{{views_data['104']['y']}}px;margin-left:{{views_data['104']['x']}}px;" id="104" src="{{views_data['104']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-two-view" style="margin-top:{{views_data['108']['y']}}px;margin-left:{{views_data['108']['x']}}px;" id="108" src="{{views_data['108']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="two-one-view" style="margin-top:{{views_data['105']['y']}}px;margin-left:{{views_data['105']['x']}}px;" id="105" src="{{views_data['105']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="two-two-view" style="margin-top:{{views_data['102']['y']}}px;margin-left:{{views_data['102']['x']}}px;" id="102" src="{{views_data['102']['src']}}"></image>
   </view>
-  
-  
+  <view class="line-view">
+    <view class="inline-view">
+      <view class="ininline-view"></view>
+    </view>
+  </view>
+  <view class="steps-view">第{{steps}}步</view>
+  <image class="reset-btn" src="../../images/reset.png" bindtap="bindResetBtn"></image>
 </view>
