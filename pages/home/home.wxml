@@ -11,10 +11,15 @@
     <image bindtouchstart="bindtouchbegin"  class="one-two-view" style="margin-top:{{views_data['108']['y']}}px;margin-left:{{views_data['108']['x']}}px;" id="108" src="{{views_data['108']['src']}}"></image>
     <image bindtouchstart="bindtouchbegin"  class="two-one-view" style="margin-top:{{views_data['105']['y']}}px;margin-left:{{views_data['105']['x']}}px;" id="105" src="{{views_data['105']['src']}}"></image>
     <image bindtouchstart="bindtouchbegin"  class="two-two-view" style="margin-top:{{views_data['102']['y']}}px;margin-left:{{views_data['102']['x']}}px;" id="102" src="{{views_data['102']['src']}}"></image>
+  
+    <!--<view class="selected-view" style="width: {{sel_width}}px; height: {{sel_height}}px; margin-top: {{sel_y}}px; margin-left: {{sel_x}}px"></view>-->
   </view>
   <view class="line-view">
     <view class="inline-view">
-      <view class="ininline-view"></view>
+      <view class="ininline-view">
+        <view class="point-view" animation="{{animationData}}"></view>
+        <view class="point-view-two" animation="{{animationData1}}"></view>
+      </view>
     </view>
   </view>
   <view class="steps-view">第{{steps}}步</view>

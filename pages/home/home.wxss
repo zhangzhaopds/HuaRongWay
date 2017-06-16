@@ -23,18 +23,26 @@ page {
   width: 66px;
   height: 66px;
   z-index: 1;
+  /*border-style: solid;
+  border-width: 1px;
+  border-color: white;*/
+  
 }
 .one-two-view {
   position: absolute;
   width: 66px;
   height: 132px;
   z-index: 1;
+  
 }
 .two-one-view {
   position: absolute;
   width: 132px;
   height: 66px;
   z-index: 1;
+  /*border-style: solid;
+  border-width: 1px;
+  border-color: white;*/
 }
 .two-two-view {
   position: absolute;
@@ -58,9 +66,11 @@ page {
   align-items: center;
 }
 .ininline-view {
-  background: white;
+  background: #F9F9F9;
   height: 3px;
   width: 132px;
+  display: flex;
+  justify-content: space-between;
 }
 .steps-view {
   margin-top: 50px;
@@ -74,4 +84,20 @@ page {
   position: absolute;
   bottom: 30px;
   right: 30px;
+}
+.selected-view {
+  position: absolute;
+  z-index: 3;
+  background-color: white;
+  opacity: 0.7;
+}
+.point-view {
+  background-color: red;
+  width: 4px;
+  height: 4px;
+}
+.point-view-two {
+  background-color: green;
+  width: 4px;
+  height: 4px;
 }

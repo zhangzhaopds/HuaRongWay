@@ -22,7 +22,17 @@ Page({
     blockType: 1,       // 1: 单一，2：竖二， 3： 横二， 4: 方四
     blockId: '',
     views_data: {},
-    steps: 0
+    steps: 0,
+    animationData: {},
+    animationData1: {},
+
+    //选中控件
+    sel_width: 0,
+    sel_height: 0,
+    sel_x: 0,
+    sel_y: 0,
+
+    timer: 0,
 
   },
   /**
@@ -30,6 +40,33 @@ Page({
    */
   onLoad: function (options) {
     this.bindResetBtn()
+    
+  },
+
+  animationAction: function(e) {
+    var that = this
+    var timer = setInterval(function () {
+      var animation = wx.createAnimation({
+        duration: 4000,
+        timingFunction: 'ease',
+      })
+      var animation1 = wx.createAnimation({
+        duration: 4000,
+        timingFunction: 'ease',
+      })
+
+      animation.translateX(66).step()
+      animation.translateX(0).step()
+      animation1.translateX(-66).step()
+      animation1.translateX(0).step()
+      that.setData({
+        animationData: animation.export(),
+        animationData1: animation1.export()
+      })
+    }, 4000)
+    this.setData({
+      timer: timer
+    })
   },
 
   // 重置
@@ -46,6 +83,10 @@ Page({
       view_y: content,
       view_offset_top: offset,
       view_offset_left: offset,
+      sel_width: 0,
+      sel_height: 0,
+      sel_x: 0,
+      sel_y: 0
     });
     console.log(this.data)
     var offset_top = 20
@@ -70,19 +111,19 @@ Page({
     }
     var datas = {}
     // 1单一 13 14 16 19 : 106 107 109 110
-    datas['106'] = { 'x': points[17][1], 'y': points[17][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/11_1_0.png', 'd_src': '../../images/11_1_0.png' }
-    datas['107'] = { 'x': points[18][1], 'y': points[18][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/11_2_0.png', 'd_src': '../../images/11_2_0.png' }
-    datas['109'] = { 'x': points[16][1], 'y': points[16][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/11_3_0.png', 'd_src': '../../images/11_3_0.png' }
-    datas['110'] = { 'x': points[19][1], 'y': points[19][0], 'type': 1, 'src': '../../images/66.png', 's_src': '../../images/11_4_0.png', 'd_src': '../../images/11_4_0.png' }
+    datas['106'] = { 'x': points[17][1], 'y': points[17][0], 'type': 1, 'src': '../../images/11_1_1.png', 's_src': '../../images/11_1_0.png', 'd_src': '../../images/11_1_1.png' }
+    datas['107'] = { 'x': points[18][1], 'y': points[18][0], 'type': 1, 'src': '../../images/11_2_1.png', 's_src': '../../images/11_2_0.png', 'd_src': '../../images/11_2_1.png' }
+    datas['109'] = { 'x': points[16][1], 'y': points[16][0], 'type': 1, 'src': '../../images/11_3_1.png', 's_src': '../../images/11_3_0.png', 'd_src': '../../images/11_3_1.png' }
+    datas['110'] = { 'x': points[19][1], 'y': points[19][0], 'type': 1, 'src': '../../images/11_4_1.png', 's_src': '../../images/11_4_0.png', 'd_src': '../../images/11_4_1.png' }
     // 2竖二 0 3 8 11   101 103 104 108
-    datas['101'] = { 'x': points[0][1], 'y': points[0][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/12_1_0.png', 'd_src': '../../images/12_1_0.png' }
-    datas['103'] = { 'x': points[3][1], 'y': points[3][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/12_2_0.png', 'd_src': '../../images/12_2_0.png' }
-    datas['104'] = { 'x': points[8][1], 'y': points[8][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/12_3_0.png', 'd_src': '../../images/12_3_0.png' }
-    datas['108'] = { 'x': points[11][1], 'y': points[11][0], 'type': 2, 'src': '../../images/66.png', 's_src': '../../images/12_4_0.png', 'd_src': '../../images/12_4_0.png' }
+    datas['101'] = { 'x': points[0][1], 'y': points[0][0], 'type': 2, 'src': '../../images/12_1_1.png', 's_src': '../../images/12_1_0.png', 'd_src': '../../images/12_1_1.png' }
+    datas['103'] = { 'x': points[3][1], 'y': points[3][0], 'type': 2, 'src': '../../images/12_2_1.png', 's_src': '../../images/12_2_0.png', 'd_src': '../../images/12_2_1.png' }
+    datas['104'] = { 'x': points[8][1], 'y': points[8][0], 'type': 2, 'src': '../../images/12_3_1.png', 's_src': '../../images/12_3_0.png', 'd_src': '../../images/12_3_1.png' }
+    datas['108'] = { 'x': points[11][1], 'y': points[11][0], 'type': 2, 'src': '../../images/12_4_1.png', 's_src': '../../images/12_4_0.png', 'd_src': '../../images/12_4_1.png' }
     // 3横二 9  105
-    datas['105'] = { 'x': points[13][1], 'y': points[13][0], 'type': 3, 'src': '../../images/66.png', 's_src': '../../images/21_1_0.png', 'd_src': '../../images/21_1_0.png' }
+    datas['105'] = { 'x': points[13][1], 'y': points[13][0], 'type': 3, 'src': '../../images/21_1_1.png', 's_src': '../../images/21_1_0.png', 'd_src': '../../images/21_1_1.png' }
     // 4方四 1
-    datas['102'] = { 'x': points[1][1], 'y': points[1][0], 'type': 4, 'src': '../../images/66.png', 's_src': '../../images/22_1_0.png', 'd_src': '../../images/22_1_0.png' }
+    datas['102'] = { 'x': points[1][1], 'y': points[1][0], 'type': 4, 'src': '../../images/22_1_1.png', 's_src': '../../images/22_1_0.png', 'd_src': '../../images/22_1_1.png' }
 
     this.setData({
       point_tops: tops,
@@ -154,11 +195,11 @@ Page({
     // 成功
     // 102  x:86 y:218
     var data = this.data['views_data']['102']
-    if (data['x'] == 86 && data['y'] == 86) {
+    if (data['x'] == 86 && data['y'] == 218) {
       console.log('成功')
       wx.showModal({
         title: '恭喜',
-        content: '你已出师了',
+        content: '执子之手，与子偕老',
         showCancel: false,
         success: function(res) {
           if (res.confirm) {
@@ -182,17 +223,21 @@ Page({
     this.data['views_data'][id.toString()]['src'] = this.data['views_data'][id.toString()]['s_src']
   
     var data = this.data['views_data'][id.toString()]
+    var size = this.blockSize(data['type'])
     this.setData({
       view_offset_top: data['y'],
       view_offset_left: data['x'],
       blockType: data['type'],
       blockId: id.toString(),
       isPenetrate: false,
-      views_data: this.data['views_data']
+      views_data: this.data['views_data'],
+      sel_width: size[0],
+      sel_height: size[1],
+      sel_x: data['x'],
+      sel_y: data['y']
     })
     console.log("选择控件", this.data['view_offset_left'], this.data['view_offset_top'], this.data['blockType'], this.data['blockId'])
     console.log(this.data['views_data'][this.data['blockId']])
-  
   },
   // 根据类型，返回宽高
   blockSize: function(e) {
@@ -302,7 +347,9 @@ Page({
       this.data['views_data'][this.data['blockId']]['x'] = this.data['view_offset_left']
       this.setData({
         views_data: this.data['views_data'],
-        steps: this.data['steps'] + 1
+        steps: this.data['steps'] + 1,
+        sel_y: this.data['view_offset_top'],
+        sel_x: this.data['view_offset_left']
       })
     } else {
       console.log("右=越界")
@@ -390,7 +437,9 @@ Page({
       this.data['views_data'][this.data['blockId']]['x'] = this.data['view_offset_left']
       this.setData({
         views_data: this.data['views_data'],
-        steps: this.data['steps'] + 1
+        steps: this.data['steps'] + 1,
+        sel_y: this.data['view_offset_top'],
+        sel_x: this.data['view_offset_left']
       })
     } else {
       console.log("左=越界")
@@ -477,7 +526,9 @@ Page({
       this.data['views_data'][this.data['blockId']]['y'] = this.data['view_offset_top']
       this.setData({
         views_data: this.data['views_data'],
-        steps: this.data['steps'] + 1
+        steps: this.data['steps'] + 1,
+        sel_y: this.data['view_offset_top'],
+        sel_x: this.data['view_offset_left']
       })
     } else {
       console.log("上移动=越界")
@@ -564,7 +615,9 @@ Page({
       this.data['views_data'][this.data['blockId']]['y'] = this.data['view_offset_top']
       this.setData({
         views_data: this.data['views_data'],
-        steps: this.data['steps'] + 1
+        steps: this.data['steps'] + 1,
+        sel_y: this.data['view_offset_top'],
+        sel_x: this.data['view_offset_left']
       })
     } else {
       console.log("下=越界")
@@ -587,14 +640,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.animationAction()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    clearInterval(this.data['timer'])
   },
 
   /**
