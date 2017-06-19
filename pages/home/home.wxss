@@ -101,3 +101,19 @@ page {
   width: 4px;
   height: 4px;
 }
+.desc-view {
+  margin-top: 20px;
+  /*color: #BEEDC7*/
+  color: green
+}
+.down-box {
+  display: flex;
+  justify-content: center;
+  width: 80px;
+  height: 40px;
+}
+.down-img {
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
+}

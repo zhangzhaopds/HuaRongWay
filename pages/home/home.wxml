@@ -1,6 +1,7 @@
 <!--pages/home/home.wxml-->
 <view class="home-container">
-  <view class="content-box" bindtouchstart="boxtouchbegin" >
+  <!--横刀立马-->
+  <view class="content-box" bindtouchstart="boxtouchbegin" hidden="{{ contentType != 1}}">
     <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['106']['y']}}px;margin-left:{{views_data['106']['x']}}px;" id="106" src="{{views_data['106']['src']}}"></image>
     <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['107']['y']}}px;margin-left:{{views_data['107']['x']}}px;" id="107" src="{{views_data['107']['src']}}"></image>
     <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['109']['y']}}px;margin-left:{{views_data['109']['x']}}px;" id="109" src="{{views_data['109']['src']}}"></image>
@@ -14,6 +15,21 @@
   
     <!--<view class="selected-view" style="width: {{sel_width}}px; height: {{sel_height}}px; margin-top: {{sel_y}}px; margin-left: {{sel_x}}px"></view>-->
   </view>
+  <!--井中之蛙-->
+  <view class="content-box" bindtouchstart="boxtouchbegin" hidden="{{ contentType != 2}}">
+    <image bindtouchstart="bindtouchbegin"  class="one-two-view" style="margin-top:{{views_data['206']['y']}}px;margin-left:{{views_data['206']['x']}}px;" id="206" src="{{views_data['206']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['207']['y']}}px;margin-left:{{views_data['207']['x']}}px;" id="207" src="{{views_data['207']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['209']['y']}}px;margin-left:{{views_data['209']['x']}}px;" id="209" src="{{views_data['209']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="two-one-view" style="margin-top:{{views_data['210']['y']}}px;margin-left:{{views_data['210']['x']}}px;" id="210" src="{{views_data['210']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['201']['y']}}px;margin-left:{{views_data['201']['x']}}px;" id="201" src="{{views_data['201']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-one-view" style="margin-top:{{views_data['203']['y']}}px;margin-left:{{views_data['203']['x']}}px;" id="203" src="{{views_data['203']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="one-two-view" style="margin-top:{{views_data['204']['y']}}px;margin-left:{{views_data['204']['x']}}px;" id="204" src="{{views_data['204']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="two-one-view" style="margin-top:{{views_data['208']['y']}}px;margin-left:{{views_data['208']['x']}}px;" id="208" src="{{views_data['208']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="two-two-view" style="margin-top:{{views_data['205']['y']}}px;margin-left:{{views_data['205']['x']}}px;" id="205" src="{{views_data['205']['src']}}"></image>
+    <image bindtouchstart="bindtouchbegin"  class="two-one-view" style="margin-top:{{views_data['202']['y']}}px;margin-left:{{views_data['202']['x']}}px;" id="202" src="{{views_data['202']['src']}}"></image>
+  
+    <!--<view class="selected-view" style="width: {{sel_width}}px; height: {{sel_height}}px; margin-top: {{sel_y}}px; margin-left: {{sel_x}}px"></view>-->
+  </view>
   <view class="line-view">
     <view class="inline-view">
       <view class="ininline-view">
@@ -23,5 +39,10 @@
     </view>
   </view>
   <view class="steps-view">第{{steps}}步</view>
+  <view class="desc-view" wx:if="{{ contentType == 1 }}">{{content}}</view>
+  <view class="desc-view" wx:if="{{ contentType == 2 }}">{{content}}</view>
+  <view class="down-box" bindtap="bindChangeContentType">
+    <image src="../../images/down.png" class="down-img"></image>
+  </view>
   <image class="reset-btn" src="../../images/reset.png" bindtap="bindResetBtn"></image>
 </view>

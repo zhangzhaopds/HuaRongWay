@@ -33,12 +33,22 @@ Page({
     sel_y: 0,
 
     timer: 0,
+    contentType: 2,       // 1：横刀立马 2：井中之蛙
+    contentTypes: [1, 2],
+    content: '执子之手,与子偕老',
+    contents: ['执子之手,与子偕老', '爱上一个人,恋上一个城']
 
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var content = this.data['contents'][1]
+    var ty = this.data['contentTypes'][1]
+    this.setData({
+      contentType: ty,
+      content: content
+    })
     this.bindResetBtn()
     
   },
@@ -102,28 +112,58 @@ Page({
         tops.push(offset_top)
         lefts.push(offset_left)
         points.push([offset_top, offset_left])
-        if (i == 2 && (j == 2 || j == 1)) {
-          spaces.push(true)
-        } else {
-          spaces.push(false)
+        // 横刀立马
+        if (this.data['contentType'] == 1) {
+          if (i == 2 && (j == 2 || j == 1)) {
+            spaces.push(true)
+          } else {
+            spaces.push(false)
+          }
+        } else if (this.data['contentType'] == 2) {
+          // 井中之蛙
+          if (i == 4 && (j == 0 || j == 3)) {
+            spaces.push(true)
+          } else {
+            spaces.push(false)
+          }
         }
+        
       }
     }
     var datas = {}
-    // 1单一 13 14 16 19 : 106 107 109 110
-    datas['106'] = { 'x': points[17][1], 'y': points[17][0], 'type': 1, 'src': '../../images/11_1_1.png', 's_src': '../../images/11_1_0.png', 'd_src': '../../images/11_1_1.png' }
-    datas['107'] = { 'x': points[18][1], 'y': points[18][0], 'type': 1, 'src': '../../images/11_2_1.png', 's_src': '../../images/11_2_0.png', 'd_src': '../../images/11_2_1.png' }
-    datas['109'] = { 'x': points[16][1], 'y': points[16][0], 'type': 1, 'src': '../../images/11_3_1.png', 's_src': '../../images/11_3_0.png', 'd_src': '../../images/11_3_1.png' }
-    datas['110'] = { 'x': points[19][1], 'y': points[19][0], 'type': 1, 'src': '../../images/11_4_1.png', 's_src': '../../images/11_4_0.png', 'd_src': '../../images/11_4_1.png' }
-    // 2竖二 0 3 8 11   101 103 104 108
-    datas['101'] = { 'x': points[0][1], 'y': points[0][0], 'type': 2, 'src': '../../images/12_1_1.png', 's_src': '../../images/12_1_0.png', 'd_src': '../../images/12_1_1.png' }
-    datas['103'] = { 'x': points[3][1], 'y': points[3][0], 'type': 2, 'src': '../../images/12_2_1.png', 's_src': '../../images/12_2_0.png', 'd_src': '../../images/12_2_1.png' }
-    datas['104'] = { 'x': points[8][1], 'y': points[8][0], 'type': 2, 'src': '../../images/12_3_1.png', 's_src': '../../images/12_3_0.png', 'd_src': '../../images/12_3_1.png' }
-    datas['108'] = { 'x': points[11][1], 'y': points[11][0], 'type': 2, 'src': '../../images/12_4_1.png', 's_src': '../../images/12_4_0.png', 'd_src': '../../images/12_4_1.png' }
-    // 3横二 9  105
-    datas['105'] = { 'x': points[13][1], 'y': points[13][0], 'type': 3, 'src': '../../images/21_1_1.png', 's_src': '../../images/21_1_0.png', 'd_src': '../../images/21_1_1.png' }
-    // 4方四 1
-    datas['102'] = { 'x': points[1][1], 'y': points[1][0], 'type': 4, 'src': '../../images/22_1_1.png', 's_src': '../../images/22_1_0.png', 'd_src': '../../images/22_1_1.png' }
+    if (this.data['contentType'] == 1) {
+      // 1单一 13 14 16 19 : 106 107 109 110
+      datas['106'] = { 'x': points[17][1], 'y': points[17][0], 'type': 1, 'src': '../../images/11_1_1.png', 's_src': '../../images/11_1_0.png', 'd_src': '../../images/11_1_1.png' }
+      datas['107'] = { 'x': points[18][1], 'y': points[18][0], 'type': 1, 'src': '../../images/11_2_1.png', 's_src': '../../images/11_2_0.png', 'd_src': '../../images/11_2_1.png' }
+      datas['109'] = { 'x': points[16][1], 'y': points[16][0], 'type': 1, 'src': '../../images/11_3_1.png', 's_src': '../../images/11_3_0.png', 'd_src': '../../images/11_3_1.png' }
+      datas['110'] = { 'x': points[19][1], 'y': points[19][0], 'type': 1, 'src': '../../images/11_4_1.png', 's_src': '../../images/11_4_0.png', 'd_src': '../../images/11_4_1.png' }
+      // 2竖二 0 3 8 11   101 103 104 108
+      datas['101'] = { 'x': points[0][1], 'y': points[0][0], 'type': 2, 'src': '../../images/12_1_1.png', 's_src': '../../images/12_1_0.png', 'd_src': '../../images/12_1_1.png' }
+      datas['103'] = { 'x': points[3][1], 'y': points[3][0], 'type': 2, 'src': '../../images/12_2_1.png', 's_src': '../../images/12_2_0.png', 'd_src': '../../images/12_2_1.png' }
+      datas['104'] = { 'x': points[8][1], 'y': points[8][0], 'type': 2, 'src': '../../images/12_3_1.png', 's_src': '../../images/12_3_0.png', 'd_src': '../../images/12_3_1.png' }
+      datas['108'] = { 'x': points[11][1], 'y': points[11][0], 'type': 2, 'src': '../../images/12_4_1.png', 's_src': '../../images/12_4_0.png', 'd_src': '../../images/12_4_1.png' }
+      // 3横二 9  105
+      datas['105'] = { 'x': points[13][1], 'y': points[13][0], 'type': 3, 'src': '../../images/21_1_1.png', 's_src': '../../images/21_1_0.png', 'd_src': '../../images/21_1_1.png' }
+      // 4方四 1
+      datas['102'] = { 'x': points[1][1], 'y': points[1][0], 'type': 4, 'src': '../../images/22_1_1.png', 's_src': '../../images/22_1_0.png', 'd_src': '../../images/22_1_1.png' }
+    } else if (this.data['contentType'] == 2) {
+      // 1单一 0 3 12 15 : 101 103 107 109
+      datas['201'] = { 'x': points[0][1], 'y': points[0][0], 'type': 1, 'src': '../../images/2_11_1_1.png', 's_src': '../../images/2_11_1_0.png', 'd_src': '../../images/2_21_1_1.png' }
+      datas['203'] = { 'x': points[3][1], 'y': points[3][0], 'type': 1, 'src': '../../images/2_11_2_1.png', 's_src': '../../images/2_11_2_0.png', 'd_src': '../../images/2_11_2_1.png' }
+      datas['207'] = { 'x': points[12][1], 'y': points[12][0], 'type': 1, 'src': '../../images/2_11_3_1.png', 's_src': '../../images/2_11_3_0.png', 'd_src': '../../images/2_11_3_1.png' }
+      datas['209'] = { 'x': points[15][1], 'y': points[15][0], 'type': 1, 'src': '../../images/2_11_4_1.png', 's_src': '../../images/2_11_4_0.png', 'd_src': '../../images/2_11_4_1.png' }
+      // 2竖二 4 7   104 106
+      datas['204'] = { 'x': points[4][1], 'y': points[4][0], 'type': 2, 'src': '../../images/2_12_1_1.png', 's_src': '../../images/2_12_1_0.png', 'd_src': '../../images/2_12_1_1.png' }
+      datas['206'] = { 'x': points[7][1], 'y': points[7][0], 'type': 2, 'src': '../../images/2_12_2_1.png', 's_src': '../../images/2_12_2_0.png', 'd_src': '../../images/2_12_2_1.png' }
+      // 3横二 1 13 17 102 108 110
+      datas['202'] = { 'x': points[1][1], 'y': points[1][0], 'type': 3, 'src': '../../images/2_21_2_1.png', 's_src': '../../images/2_21_2_0.png', 'd_src': '../../images/2_21_2_1.png' }
+      datas['208'] = { 'x': points[13][1], 'y': points[13][0], 'type': 3, 'src': '../../images/2_21_3_1.png', 's_src': '../../images/2_21_3_0.png', 'd_src': '../../images/2_21_3_1.png' }
+      datas['210'] = { 'x': points[17][1], 'y': points[17][0], 'type': 3, 'src': '../../images/2_21_1_1.png', 's_src': '../../images/2_21_1_0.png', 'd_src': '../../images/2_21_1_1.png' }
+      // 4方四 5 105
+      datas['205'] = { 'x': points[5][1], 'y': points[5][0], 'type': 4, 'src': '../../images/22_2_1.png', 's_src': '../../images/22_2_0.png', 'd_src': '../../images/22_2_1.png' }
+    }
+    
+    
 
     this.setData({
       point_tops: tops,
@@ -131,12 +171,30 @@ Page({
       points: points,
       spaces: spaces,
       views_data: datas,
-      steps: 0
+      steps: 0,
+      blockId: ''
     })
 
     console.log(datas)
     console.log(points)
     console.log(spaces)
+
+  },
+  // 更换类型
+  bindChangeContentType: function(res) {
+    var content = this.data['contentType'] + 1
+    var dd = this.data['contentTypes'].indexOf(content)
+    var cc = 0
+    if (dd == -1) {
+      cc = 0
+    } else {
+      cc = dd
+    }
+    this.setData({
+      contentType: this.data['contentTypes'][cc],
+      content: this.data['contents'][cc]
+    })
+    this.bindResetBtn()
 
   },
 
@@ -194,12 +252,19 @@ Page({
     }
     // 成功
     // 102  x:86 y:218
-    var data = this.data['views_data']['102']
+    var data
+    if (this.data['contentType'] == 1) {
+      data = this.data['views_data']['102']
+    } else if (this.data['contentType'] == 2) {
+      data = this.data['views_data']['205']
+    }
+    
     if (data['x'] == 86 && data['y'] == 218) {
       console.log('成功')
+      var that = this
       wx.showModal({
         title: '恭喜',
-        content: '执子之手，与子偕老',
+        content: that.data['content'],
         showCancel: false,
         success: function(res) {
           if (res.confirm) {
@@ -217,6 +282,8 @@ Page({
   bindtouchbegin: function(e) {
     var id = parseInt(e['target']['id'])
     // blockType: 1,       // 1: 单一，2：竖二， 3： 横二， 4: 方四
+    console.log(id)
+    console.log(this.data['views_data'][this.data['blockId']])
     if (this.data['blockId'] != '') {  
       this.data['views_data'][this.data['blockId']]['src'] = this.data['views_data'][this.data['blockId']]['d_src']
     }
