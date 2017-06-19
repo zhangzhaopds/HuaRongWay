@@ -166,7 +166,7 @@ Page({
       datas['102'] = { 'x': points[1][1], 'y': points[1][0], 'type': 4, 'src': '../../images/22_1_1.png', 's_src': '../../images/22_1_0.png', 'd_src': '../../images/22_1_1.png' }
     } else if (this.data['contentType'] == 2) {
       // 1单一 0 3 12 15 : 101 103 107 109
-      datas['201'] = { 'x': points[0][1], 'y': points[0][0], 'type': 1, 'src': '../../images/2_11_1_1.png', 's_src': '../../images/2_11_1_0.png', 'd_src': '../../images/2_21_1_1.png' }
+      datas['201'] = { 'x': points[0][1], 'y': points[0][0], 'type': 1, 'src': '../../images/2_11_1_1.png', 's_src': '../../images/2_11_1_0.png', 'd_src': '../../images/2_11_1_1.png' }
       datas['203'] = { 'x': points[3][1], 'y': points[3][0], 'type': 1, 'src': '../../images/2_11_2_1.png', 's_src': '../../images/2_11_2_0.png', 'd_src': '../../images/2_11_2_1.png' }
       datas['207'] = { 'x': points[12][1], 'y': points[12][0], 'type': 1, 'src': '../../images/2_11_3_1.png', 's_src': '../../images/2_11_3_0.png', 'd_src': '../../images/2_11_3_1.png' }
       datas['209'] = { 'x': points[15][1], 'y': points[15][0], 'type': 1, 'src': '../../images/2_11_4_1.png', 's_src': '../../images/2_11_4_0.png', 'd_src': '../../images/2_11_4_1.png' }
