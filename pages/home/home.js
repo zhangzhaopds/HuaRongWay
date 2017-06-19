@@ -43,13 +43,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var content = this.data['contents'][1]
-    var ty = this.data['contentTypes'][1]
-    this.setData({
-      contentType: ty,
-      content: content
+    var that = this
+    wx.getStorage({
+      key: 'defType',
+      success: function(res) {
+        console.log("成功")
+        console.log(res)
+        var index = res.data
+        that.setData({
+          contentType: that.data['contentTypes'][index],
+          content: that.data['contents'][parseInt(res.data)]
+        })
+        that.bindResetBtn()
+      },
+      fail: function(res) {
+        console.log("失败")
+        var content = that.data['contents'][0]
+        var ty = that.data['contentTypes'][0]
+        that.setData({
+          contentType: ty,
+          content: content
+        })
+        that.bindResetBtn()
+      }
     })
-    this.bindResetBtn()
+    
     
   },
 
@@ -174,10 +192,11 @@ Page({
       steps: 0,
       blockId: ''
     })
-
+    console.log("-----------")
     console.log(datas)
     console.log(points)
     console.log(spaces)
+    console.log("--------+++++++++++---")
 
   },
   // 更换类型
@@ -193,6 +212,11 @@ Page({
     this.setData({
       contentType: this.data['contentTypes'][cc],
       content: this.data['contents'][cc]
+    })
+    var that = this
+    wx.setStorage({
+      key: 'defType',
+      data: cc,
     })
     this.bindResetBtn()
 
